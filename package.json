@@ -14,7 +14,11 @@
     "test:watch": "npm run test -- --watch",
     "generate-mock-data": "babel-node buildScripts/generateMockData",
     "prestart-mockapi": "npm run generate-mock-data",
-    "start-mockapi": "json-server --watch src/api/db.json --port 3001"
+    "start-mockapi": "json-server --watch src/api/db.json --port 3001",
+    "clean-dist": "rimraf ./dist && mkdir dist",
+    "prebuild": "npm-run-all clean-dist test lint",
+    "build": "babel-node buildScripts/build.js",
+    "postbuild": "babel-node buildScripts/distServer.js"
   },
   "author": "Anamika Kumari",
   "license": "VF",
@@ -31,10 +35,12 @@
     "cheerio": "0.22.0",
     "cross-env": "2.0.0",
     "css-loader": "^2.1.1",
+    "ejs": "^2.6.1",
     "eslint": "3.4.0",
     "eslint-plugin-import": "1.14.0",
     "eslint-watch": "2.1.14",
     "express": "^4.16.4",
+    "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "2.22.0",
     "jsdom": "9.4.2",
     "json-schema-faker": "^0.5.0-rc16",
@@ -48,9 +54,9 @@
     "open": "^6.1.0",
     "rimraf": "2.5.4",
     "style-loader": "^0.23.1",
-    "webpack": "1.13.2",
-    "webpack-dev-middleware": "1.6.1",
-    "webpack-hot-middleware": "2.12.2",
+    "webpack": "^1.13.3",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.24.4",
     "webpack-md5-hash": "0.0.5",
     "whatwg-fetch": "^3.0.0"
   }
